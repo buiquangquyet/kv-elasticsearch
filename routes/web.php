@@ -17,3 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/log', [LogController::class, 'index']);
+Route::get('/log/sendEmail', [LogController::class, 'sendEmail']);

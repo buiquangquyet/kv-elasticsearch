@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 use App\Jobs\InsertOrder;
+use App\Jobs\SendEmail;
+use App\Jobs\SendEmailJob;
 use App\Jobs\ProcessPodcast;
 use App\Models\Mongodb\Logging;
 use App\Models\Order;
@@ -32,9 +34,17 @@ class LogController extends Controller{
         }
         //dispatch(new InsertOrder());
         //$this->dispatch(new ProcessPodcast);
-        ProcessPodcast::dispatch()->delay(now()->addMinutes(1));
+        dispatch(new SendEmail());
+            return;
         echo __METHOD__;die();
 
+    }
+
+    public function sendEmail()
+    {
+        dispatch(new SendEmailJob());
+
+        echo 'email sent';
     }
 
 }

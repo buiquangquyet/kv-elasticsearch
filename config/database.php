@@ -149,7 +149,7 @@ return [
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'password' => env('REDIS_PASSWORD', null),
             'port' => env('REDIS_PORT', 6379),
-            'database' => 1,
+            'database' => env('REDIS_DATABASE_ID', 14),
             'read_write_timeout' => env('REDIS_READ_WRITE_TIMEOUT', 0),
         ],
 
