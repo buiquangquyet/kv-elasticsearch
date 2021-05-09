@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Http;
 class LogController extends Controller{
 
     public function index(){
-        $dateRange = '01/05/2021 - 05/05/2021';
+        $dateRange = '01/03/2021 - 01/03/2021';
         $type = ['createOrder'];
 
         $response = Http::get('https://cpanel-shipping.kiotapi.com/api/setting/index', [
@@ -28,7 +28,7 @@ class LogController extends Controller{
         for($i=1; $i<=$totalPage; $i++){
             dispatch(new InsertOrder($i,$dateRange,$type));
         }
-        echo __METHOD__;die();
+        echo $dateRange.__METHOD__;die();
 
     }
 
