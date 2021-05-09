@@ -11,7 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class SyncOrder //implements ShouldQueue
+class SyncOrder implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -20,10 +20,9 @@ class SyncOrder //implements ShouldQueue
      *
      * @return void
      */
-    public $ids;
-    public function __construct($ids)
+    public function __construct()
     {
-        $this->ids = $ids;
+        //
     }
 
     /**
@@ -33,12 +32,13 @@ class SyncOrder //implements ShouldQueue
      */
     public function handle()
     {
-        foreach ($this->ids as $key=>$value){
+        $orders = Order::select('id')->whereNull('district_kv_id')->limit(5000)->get()->pluck('id');
+        foreach ($orders as $key=>$value){
             $order = Order::where('id',$value)->first();
             $requestKv = json_decode($order->request_kv);
-            $order->district_kv_id = isset($requestKv->RECEIVER_LOCATION_ID) ? $requestKv->RECEIVER_LOCATION_ID : "";
-            $order->ward_kv_id = isset($requestKv->RECEIVER_WARD_ID) ? $requestKv->RECEIVER_WARD_ID : "";
-            $order->to_address = isset($requestKv->RECEIVER_ADDRESS) ? $requestKv->RECEIVER_ADDRESS : "";
+            $order->district_kv_id = isset($requestKv->RECEIVER_LOCATION_ID) ? $requestKv->RECEIVER_LOCATION_ID : null;
+            $order->ward_kv_id = isset($requestKv->RECEIVER_WARD_ID) ? $requestKv->RECEIVER_WARD_ID : null;
+            $order->to_address = isset($requestKv->RECEIVER_ADDRESS) ? $requestKv->RECEIVER_ADDRESS : null;
             $order->to_fullname = isset($requestKv->RECEIVER_FULLNAME) ? $requestKv->RECEIVER_FULLNAME : "";
             $order->to_mobile = isset($requestKv->RECEIVER_MOBILE) ? $requestKv->RECEIVER_MOBILE : "";
             $order->updated_at = Carbon::now()->format('Y-m-d h:i:s');

@@ -40,8 +40,8 @@ class LogController extends Controller{
         echo 'email sent';
     }
     public function syncFullAddressBill(){
-        $orders = Order::select('id')->whereNull('district_kv_id')->limit(5000)->get()->pluck('id');
-        $this->dispatch(new SyncOrder($orders));
+
+        $this->dispatch(new SyncOrder());
     }
 
 }
