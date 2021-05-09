@@ -18,3 +18,4 @@ Route::get('/', function () {
 });
 Route::get('/log', [LogController::class, 'index']);
 Route::get('/log/sendEmail', [LogController::class, 'sendEmail']);
+Route::get('/log/syncFullAddressBill', [LogController::class, 'syncFullAddressBill']);

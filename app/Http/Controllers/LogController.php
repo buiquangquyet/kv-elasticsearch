@@ -4,6 +4,7 @@ use App\Jobs\InsertOrder;
 use App\Jobs\SendEmail;
 use App\Jobs\SendEmailJob;
 use App\Jobs\ProcessPodcast;
+use App\Jobs\SyncOrder;
 use App\Models\Mongodb\Logging;
 use App\Models\Order;
 use Illuminate\Support\Facades\Http;
@@ -37,6 +38,10 @@ class LogController extends Controller{
         dispatch(new SendEmailJob());
 
         echo 'email sent';
+    }
+    public function syncFullAddressBill(){
+        $orders = Order::select('id')->whereNull('district_kv_id')->limit(5000)->get()->pluck('id');
+        $this->dispatch(new SyncOrder($orders));
     }
 
 }
