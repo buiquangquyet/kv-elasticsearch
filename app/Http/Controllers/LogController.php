@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Http;
 class LogController extends Controller{
 
     public function index(){
-        $dateRange = '01/03/2021 - 01/03/2021';
+        $dateRange = '08/03/2021 - 08/03/2021';
         $type = ['createOrder'];
 
         $response = Http::get('https://cpanel-shipping.kiotapi.com/api/setting/index', [
