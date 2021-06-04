@@ -17,5 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/log', [LogController::class, 'index']);
+Route::get('/log/podcast', [LogController::class, 'podcast']);
 Route::get('/log/sendEmail', [LogController::class, 'sendEmail']);
+Route::get('/log/get-total-order-by-date/{startDate}/{endDate}', [LogController::class, 'getTotalOrderByDate']);
 Route::get('/log/syncFullAddressBill', [LogController::class, 'syncFullAddressBill']);

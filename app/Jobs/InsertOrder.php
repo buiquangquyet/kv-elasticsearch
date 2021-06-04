@@ -30,7 +30,7 @@ class InsertOrder implements ShouldQueue
 
     public function handle()
     {
-        $response = Http::timeout(5)->get('https://cpanel-shipping.kiotapi.com/api/setting/index', [
+        $response = Http::timeout(20)->get('https://cpanel-shipping.kiotapi.com/api/setting/index', [
             'page' => $this->page,
             'type' => $this->type,
             'date-range' => $this->date
