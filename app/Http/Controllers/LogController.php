@@ -36,7 +36,7 @@ class LogController extends Controller{
 
     public function podcast(){
         $dateRange = '10/01/2021 - 10/01/2021';
-        
+
 
         $response = Http::get('https://cpanel-shipping.kiotapi.com/api/setting/index', [
             'date-range'=> $dateRange
@@ -53,11 +53,6 @@ class LogController extends Controller{
     }
 
 
-    public function sendEmail()
-    {
-        $rs = $this->createDateRangeArray('2021-01-01','2021-01-30');
-        dd($rs);
-    }
     public function syncFullAddressBill(){
 
         $this->dispatch(new SyncOrder());
@@ -80,7 +75,7 @@ class LogController extends Controller{
         return $aryRange;
     }
 
-    public function getTotalOrderByDate($startDate,$endDate){
+    public function crawShip($startDate,$endDate){
         $rs = $this->createDateRangeArray($startDate,$endDate);
         foreach($rs as $key=>$value){
             dispatch(new CaculateTotalOrderByDate($value));

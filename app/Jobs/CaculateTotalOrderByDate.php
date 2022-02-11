@@ -22,7 +22,7 @@ class CaculateTotalOrderByDate implements ShouldQueue
      * @return void
      */
     public function __construct($date)
-    {   
+    {
         $this->date = $date." - ".$date;
     }
 
@@ -42,7 +42,7 @@ class CaculateTotalOrderByDate implements ShouldQueue
         $data = $loggings->data;
         $totalPage = $loggings->last_page;
         for($i=1; $i<=$totalPage; $i++){
-            dispatch(new ProcessPodcast($i,$dateRange));
+            dispatch(new ProcessPodcast($i,$this->date));
         }
     }
 }
